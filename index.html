@@ -3,134 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio Digital - Restaurante Exemplo</title>
+    <title>Cardápio Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
-        header, footer {
-            background-color: #333;
+
+        .header {
+            background: #333;
             color: #fff;
+            padding: 20px;
             text-align: center;
-            padding: 1em 0;
-        }
-        .header-container {
             position: relative;
+            transition: background-color 0.3s ease;
         }
-        .header-image {
+
+        .header img {
             width: 100%;
-            height: auto;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
         }
-        .restaurant-name {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1em 0;
+
+        .header h1 {
+            margin: 0;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
             font-size: 2em;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
         }
-        .menu-section {
-            margin: 2em;
+
+        .social-icons {
+            margin-top: 10px;
         }
-        .category {
-            margin-bottom: 3em;
-        }
-        .category-header {
-            padding: 0.5em;
-            text-align: center;
-            border-radius: 5px;
+
+        .social-icons a {
+            text-decoration: none;
             color: #fff;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s ease;
         }
-        .entradas {
-            background-color: #FFA07A; /* Salmão claro */
+
+        .social-icons a:hover {
+            color: #4CAF50; /* Cor do hover */
         }
-        .pratos-principais {
-            background-color: #20B2AA; /* Verde água */
+
+        .categories {
+            padding: 20px;
         }
-        .sobremesas {
-            background-color: #9370DB; /* Roxo médio */
+
+        .category {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
         }
-        .bebidas {
-            background-color: #4682B4; /* Azul aço */
+
+        .category-header {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #000;
         }
-        h2 {
-            margin: 0;
-        }
+
+        .hamburgueres { background-color: #ffcccc; }
+        .pizzas { background-color: #ffffcc; }
+        .bebidas { background-color: #ccffcc; }
+        .combos { background-color: #ccccff; }
+        .adicionais { background-color: #ffccff; }
+
         .menu-item {
-            margin-bottom: 2em;
             display: flex;
             align-items: center;
-            padding: 1em;
-            transition: background-color 0.3s, transform 0.3s;
-            background-color: #fff;
+            background: #fff;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
             cursor: pointer;
             position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .menu-item:hover {
-            background-color: #e0e0e0;
             transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .menu-item:active {
-            background-color: #d0d0d0;
-            transform: scale(0.98);
-        }
+
         .menu-item img {
             width: 100px;
             height: 100px;
-            margin-right: 1em;
-            border-radius: 10px;
-            transition: transform 0.3s;
+            object-fit: cover;
+            margin-right: 20px;
+            transition: transform 0.3s ease;
         }
-        .menu-item img:hover {
-            transform: scale(1.1);
+
+        .menu-item:hover img {
+            transform: scale(1.05);
         }
+
         .menu-item h3 {
             margin: 0;
         }
-        .menu-item p {
-            margin: 0.2em 0;
-        }
-        .contact-button {
-            display: inline-block;
-            margin: 1em 0;
-            padding: 0.5em 1em;
-            background-color: #25D366;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .contact-button:hover {
-            background-color: #128C7E;
-            transform: scale(1.05);
-        }
-        .contact-button:active {
-            background-color: #0b7350;
-            transform: scale(0.95);
-        }
+
         .quantity-container {
-            display: flex;
-            align-items: center;
             margin-left: auto;
         }
-        .quantity {
+
+        .quantity-container input {
             width: 60px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 0.5em;
-            margin-left: 0.5em;
-            font-size: 1em;
+            transition: border-color 0.3s ease;
         }
+
+        .quantity-container input:focus {
+            border-color: #4CAF50;
+        }
+
         .popup {
             display: none;
             position: fixed;
@@ -139,182 +137,154 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
+            transition: opacity 0.3s ease;
         }
+
+        .popup.show {
+            display: flex;
+            opacity: 1;
+        }
+
         .popup-content {
             background: #fff;
-            padding: 2em;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
             width: 80%;
             max-width: 600px;
-            position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: scale(0.9);
         }
-        .popup-content img {
+
+        .popup.show .popup-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .popup img {
             width: 100%;
-            border-radius: 10px;
-            margin-bottom: 1em;
+            height: auto;
+            margin-bottom: 10px;
         }
-        .popup-content h3 {
-            margin-top: 0;
-        }
-        .popup-content button {
+
+        .close-btn {
             position: absolute;
-            top: 1em;
-            right: 1em;
-            background: #ff4d4d;
-            border: none;
-            color: #fff;
-            padding: 0.5em 1em;
-            border-radius: 5px;
+            top: 10px;
+            right: 10px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 20px;
+            background: #f00;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            padding: 5px;
         }
-        .popup-content button:hover {
-            background: #cc0000;
-        }
-        .footer-total {
-            margin: 2em;
-            padding: 1em;
-            background-color: #222;
+
+        .contact-button {
+            display: block;
+            background: #25D366;
             color: #fff;
             text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
+            padding: 10px;
+            text-decoration: none;
             border-radius: 5px;
+            margin: 20px auto;
+            width: 200px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: #1EBEA5;
+        }
+
+        .footer-total {
+            text-align: center;
+            font-size: 1.2em;
+            padding: 10px;
+            background: #eee;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .footer-total {
+            color: #333;
+        }
+
+        .confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
-    <!-- Imagem de capa e nome do restaurante -->
-    <header>
-        <div class="header-container">
-            <img src="https://www.designi.com.br/images/preview/10619901.jpg" alt="Imagem de Capa" class="header-image">
-            <div class="restaurant-name">Restaurante Exemplo</div>
+    <header class="header">
+        <img src="https://www.designi.com.br/images/preview/10619906.jpg" alt="Capa do Restaurante">
+        <h1>Nome do Restaurante</h1>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5511999999999?text=" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </header>
 
-    <!-- Seção de Entradas -->
-    <div class="menu-section">
-        <div class="category entradas">
+    <div class="categories">
+        <!-- Seção de Hambúrgueres -->
+        <div class="category hamburgueres">
             <div class="category-header">
-                <h2>Entradas</h2>
+                <h2>Hambúrgueres</h2>
             </div>
-            <div class="menu-item" data-price="20,00" onclick="showPopup('Salada Caprese', 'https://img.cybercook.com.br/receitas/210/salada-caprese-2.jpeg', 'Tomate, mussarela de búfala e manjericão fresco.', '20,00')">
-                <img src="https://img.cybercook.com.br/receitas/210/salada-caprese-2.jpeg" alt="Salada Caprese">
+            <div class="menu-item" data-price="20,00" onclick="showPopup(this, 'Hambúrguer Clássico', 'https://www.unileverfoodsolutions.pt/dam/global-ufs/mcos/portugal/calcmenu/recipes/PT-recipes/In-Development/hamb%C3%BArguer-cl%C3%A1ssico/main-header.jpg', 'Hambúrguer com carne, queijo e molho especial.', '20,00')">
+                <img src="https://www.unileverfoodsolutions.pt/dam/global-ufs/mcos/portugal/calcmenu/recipes/PT-recipes/In-Development/hamb%C3%BArguer-cl%C3%A1ssico/main-header.jpg" alt="Hambúrguer Clássico">
                 <div>
-                    <h3>Salada Caprese</h3>
-                    <p>Descrição: Tomate, mussarela de búfala e manjericão fresco.</p>
+                    <h3>Hambúrguer Clássico</h3>
+                    <p>Descrição: Hambúrguer com carne, queijo e molho especial.</p>
                     <p>Preço: R$ 20,00</p>
                 </div>
                 <div class="quantity-container">
                     <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
                 </div>
             </div>
-            <div class="menu-item" data-price="18,00" onclick="showPopup('Bruschetta', 'https://static.itdg.com.br/images/1200-630/dadafb5a13a8fc316bded0ea8feb2a37/326223-original.jpg', 'Pão italiano com tomate, alho e manjericão.', '18,00')">
-                <img src="https://static.itdg.com.br/images/1200-630/dadafb5a13a8fc316bded0ea8feb2a37/326223-original.jpg" alt="Bruschetta">
-                <div>
-                    <h3>Bruschetta</h3>
-                    <p>Descrição: Pão italiano com tomate, alho e manjericão.</p>
-                    <p>Preço: R$ 18,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
+            <!-- Adicione mais hambúrgueres aqui -->
+        </div>
+
+        <!-- Seção de Pizzas -->
+        <div class="category pizzas">
+            <div class="category-header">
+                <h2>Pizzas</h2>
             </div>
-            <div class="menu-item" data-price="25,00" onclick="showPopup('Mini Ceviche', 'https://cdn.loveandlemons.com/wp-content/uploads/2013/02/IMG_0046.jpg', 'Peixe branco marinado com limão, cebola e coentro.', '25,00')">
-                <img src="https://cdn.loveandlemons.com/wp-content/uploads/2013/02/IMG_0046.jpg" alt="Mini Ceviche">
+            <div class="menu-item" onclick="showPizzaPopup(this, 'Pizza Margherita', 'https://s2-receitas.glbimg.com/wb7DIMyCpEyV07sTAtcDWD8HQjw=/0x0:1200x675/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2024/h/r/EfCbvqTbeDRAD3Lzc5xA/pizza-margherita.jpg', 'Pizza com molho de tomate e queijo.', {'Pequena': '25,00', 'Média': '35,00', 'Grande': '45,00'})">
+                <img src="https://s2-receitas.glbimg.com/wb7DIMyCpEyV07sTAtcDWD8HQjw=/0x0:1200x675/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2024/h/r/EfCbvqTbeDRAD3Lzc5xA/pizza-margherita.jpg" alt="Pizza Margherita">
                 <div>
-                    <h3>Mini Ceviche</h3>
-                    <p>Descrição: Peixe branco marinado com limão, cebola e coentro.</p>
+                    <h3>Pizza Margherita</h3>
+                    <p>Descrição: Pizza com molho de tomate e queijo.</p>
                     <p>Preço: R$ 25,00</p>
                 </div>
                 <div class="quantity-container">
                     <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
                 </div>
             </div>
-        </div>
-
-        <!-- Seção de Pratos Principais -->
-        <div class="category pratos-principais">
-            <div class="category-header">
-                <h2>Pratos Principais</h2>
-            </div>
-            <div class="menu-item" data-price="38,00" onclick="showPopup('Filé Mignon ao Molho Madeira', 'https://www.saboresajinomoto.com.br/uploads/images/recipes/bife-ao-molho-madeira.jpg', 'Filé mignon com molho madeira e acompanhamentos.', '38,00')">
-                <img src="https://www.saboresajinomoto.com.br/uploads/images/recipes/bife-ao-molho-madeira.jpg" alt="Filé Mignon ao Molho Madeira">
-                <div>
-                    <h3>Filé Mignon ao Molho Madeira</h3>
-                    <p>Descrição: Filé mignon com molho madeira e acompanhamentos.</p>
-                    <p>Preço: R$ 38,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
-            <div class="menu-item" data-price="32,00" onclick="showPopup('Lasanha Bolonhesa', 'https://static.itdg.com.br/images/360-240/ec2a5e38702c60bf1ace0b5f1c8e9415/shutterstock-739787011.jpg', 'Massa fresca com molho bolonhesa e queijo gratinado.', '32,00')">
-                <img src="https://static.itdg.com.br/images/360-240/ec2a5e38702c60bf1ace0b5f1c8e9415/shutterstock-739787011.jpg" alt="Lasanha Bolonhesa">
-                <div>
-                    <h3>Lasanha Bolonhesa</h3>
-                    <p>Descrição: Massa fresca com molho bolonhesa e queijo gratinado.</p>
-                    <p>Preço: R$ 32,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
-            <div class="menu-item" data-price="35,00" onclick="showPopup('Risoto de Cogumelos', 'https://www.receiteria.com.br/wp-content/uploads/risoto-de-camarao-14.jpg', 'Arroz cremoso com camarões e parmesão.', '35,00')">
-                <img src="https://www.receiteria.com.br/wp-content/uploads/risoto-de-camarao-14.jpg" alt="Risoto de Camarão">
-                <div>
-                    <h3>Risoto de Camarão</h3>
-                    <p>Descrição: Arroz cremoso com camarões e parmesão.</p>
-                    <p>Preço: R$ 35,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
-        </div>
-
-        <!-- Seção de Sobremesas -->
-        <div class="category sobremesas">
-            <div class="category-header">
-                <h2>Sobremesas</h2>
-            </div>
-            <div class="menu-item" data-price="12,00" onclick="showPopup('Pudim de Leite', 'https://s2-receitas.glbimg.com/jK-kMTPr3Yzex9P93zqt4DSsFXo=/0x0:1366x768/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2023/z/0/RsipkzTEu0Y1PGiavCpA/pudim-de-leite-condensado.jpg', 'Pudim tradicional de leite condensado.', '12,00')">
-                <img src="https://s2-receitas.glbimg.com/jK-kMTPr3Yzex9P93zqt4DSsFXo=/0x0:1366x768/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2023/z/0/RsipkzTEu0Y1PGiavCpA/pudim-de-leite-condensado.jpg" alt="Pudim de Leite">
-                <div>
-                    <h3>Pudim de Leite</h3>
-                    <p>Descrição: Pudim tradicional de leite condensado.</p>
-                    <p>Preço: R$ 12,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
-            <div class="menu-item" data-price="15,00" onclick="showPopup('Mousse de Chocolate', 'https://guiadacozinha.com.br/wp-content/uploads/2019/10/mousse-chocolate-copinho-768x619.jpg', 'Mousse cremosa de chocolate meio amargo.', '15,00')">
-                <img src="https://guiadacozinha.com.br/wp-content/uploads/2019/10/mousse-chocolate-copinho-768x619.jpg" alt="Mousse de Chocolate">
-                <div>
-                    <h3>Mousse de Chocolate</h3>
-                    <p>Descrição: Mousse cremosa de chocolate meio amargo.</p>
-                    <p>Preço: R$ 15,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
-            <div class="menu-item" data-price="14,00" onclick="showPopup('Torta de Limão', 'https://guiadacozinha.com.br/wp-content/uploads/2018/04/torta-de-limao-facil.jpg', 'Torta de limão com base crocante e merengue.', '14,00')">
-                <img src="https://guiadacozinha.com.br/wp-content/uploads/2018/04/torta-de-limao-facil.jpg" alt="Torta de Limão">
-                <div>
-                    <h3>Torta de Limão</h3>
-                    <p>Descrição: Torta de limão com base crocante e merengue.</p>
-                    <p>Preço: R$ 14,00</p>
-                </div>
-                <div class="quantity-container">
-                    <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
-                </div>
-            </div>
+            <!-- Adicione mais pizzas aqui -->
         </div>
 
         <!-- Seção de Bebidas -->
@@ -322,104 +292,202 @@
             <div class="category-header">
                 <h2>Bebidas</h2>
             </div>
-            <div class="menu-item" data-price="8,00" onclick="showPopup('Suco Natural', 'https://controlardiabetes.com.br/wp-content/uploads/2022/03/suco-de-fruta-natural-scaled.jpg', 'Suco de frutas frescas (laranja, limão, abacaxi).', '8,00')">
-                <img src="https://controlardiabetes.com.br/wp-content/uploads/2022/03/suco-de-fruta-natural-scaled.jpg" alt="Suco Natural">
+            <div class="menu-item" data-price="8,00" onclick="showPopup(this, 'Refrigerante', 'https://coopsp.vtexassets.com/arquivos/ids/215355-800-auto?v=637919527186470000&width=800&height=auto&aspect=true', 'Refrigerante gelado.', '8,00')">
+                <img src="https://coopsp.vtexassets.com/arquivos/ids/215355-800-auto?v=637919527186470000&width=800&height=auto&aspect=true" alt="Refrigerante">
                 <div>
-                    <h3>Suco Natural</h3>
-                    <p>Descrição: Suco de frutas frescas (laranja, limão, abacaxi).</p>
+                    <h3>Refrigerante</h3>
+                    <p>Descrição: Refrigerante gelado.</p>
                     <p>Preço: R$ 8,00</p>
                 </div>
                 <div class="quantity-container">
                     <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
                 </div>
             </div>
-            <div class="menu-item" data-price="6,00" onclick="showPopup('Refrigerante', 'https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2023/11/10/1498696453-refrigerante-zero.jpg', 'Variedades de refrigerantes.', '6,00')">
-                <img src="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2023/11/10/1498696453-refrigerante-zero.jpg" alt="Refrigerante">
+            <!-- Adicione mais bebidas aqui -->
+        </div>
+
+        <!-- Seção de Combos -->
+        <div class="category combos">
+            <div class="category-header">
+                <h2>Combos</h2>
+            </div>
+            <div class="menu-item" data-price="30,00" onclick="showPopup(this, 'Combo Especial', 'https://blog.castellmaq.com.br/wp-content/uploads/2023/01/465_5.jpg', 'Combo com hambúrguer, batata frita e refrigerante.', '30,00')">
+                <img src="https://blog.castellmaq.com.br/wp-content/uploads/2023/01/465_5.jpg" alt="Combo Especial">
                 <div>
-                    <h3>Refrigerante</h3>
-                    <p>Descrição: Variedades de refrigerantes.</p>
-                    <p>Preço: R$ 6,00</p>
+                    <h3>Combo Especial</h3>
+                    <p>Descrição: Combo com hambúrguer, batata frita e refrigerante.</p>
+                    <p>Preço: R$ 30,00</p>
                 </div>
                 <div class="quantity-container">
                     <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
                 </div>
             </div>
-            <div class="menu-item" data-price="18,00" onclick="showPopup('Cerveja Artesanal', 'https://img.imageboss.me/consul/cdn/animation:true/wp-content/uploads/2021/08/imagem_feed_01-36.png', 'Cerveja artesanal local.', '18,00')">
-                <img src="https://img.imageboss.me/consul/cdn/animation:true/wp-content/uploads/2021/08/imagem_feed_01-36.png" alt="Cerveja Artesanal">
+            <!-- Adicione mais combos aqui -->
+        </div>
+
+        <!-- Seção de Adicionais -->
+        <div class="category adicionais">
+            <div class="category-header">
+                <h2>Adicionais</h2>
+            </div>
+            <div class="menu-item" data-price="5,00" onclick="showPopup(this, 'Batata Frita', 'https://www.sabornamesa.com.br/media/k2/items/cache/377829b055e89e3afb894e7528a10996_XL.jpg', 'Porção de batata frita crocante.', '5,00')">
+                <img src="https://www.sabornamesa.com.br/media/k2/items/cache/377829b055e89e3afb894e7528a10996_XL.jpg" alt="Batata Frita">
                 <div>
-                    <h3>Cerveja Artesanal</h3>
-                    <p>Descrição: Cerveja artesanal local.</p>
-                    <p>Preço: R$ 18,00</p>
+                    <h3>Batata Frita</h3>
+                    <p>Descrição: Porção de batata frita crocante.</p>
+                    <p>Preço: R$ 5,00</p>
                 </div>
                 <div class="quantity-container">
                     <input type="number" class="quantity" min="0" value="0" onchange="updateTotal()">
                 </div>
             </div>
+            <!-- Adicione mais adicionais aqui -->
         </div>
     </div>
 
-    <!-- Rodapé com Total e Botão de contato via WhatsApp -->
-    <footer>
-        <div class="footer-total">
-            Total: R$ <span id="total-amount">0,00</span>
-        </div>
-        <a id="contact-button" href="https://wa.me/5591983223678" class="contact-button" target="_blank">Fale Conosco no WhatsApp</a>
-    </footer>
-
-    <!-- Popup -->
+    <!-- Popup para itens gerais -->
     <div id="popup" class="popup">
         <div class="popup-content">
-            <button onclick="closePopup()">Fechar</button>
-            <img id="popup-image" src="" alt="">
+            <span class="close-btn" onclick="closePopup()">X</span>
+            <img id="popup-image" src="" alt="Imagem do Item">
             <h3 id="popup-title"></h3>
             <p id="popup-description"></p>
             <p id="popup-price"></p>
+            <div class="quantity-container">
+                <label for="popup-quantity">Quantidade:</label>
+                <input type="number" id="popup-quantity" class="quantity" min="0" value="0">
+            </div>
+            <button class="confirm-btn" onclick="confirmSelection()">Confirmar</button>
         </div>
     </div>
 
+    <!-- Popup para pizzas -->
+    <div id="pizza-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePizzaPopup()">X</span>
+            <img id="pizza-popup-image" src="" alt="Imagem do Item">
+            <h3 id="pizza-popup-title"></h3>
+            <p id="pizza-popup-description"></p>
+            <p id="pizza-popup-price"></p>
+            <div>
+                <label for="pizza-size">Tamanho:</label>
+                <select id="pizza-size" onchange="updatePizzaPrice()">
+                    <option value="Pequena">Pequena</option>
+                    <option value="Média">Média</option>
+                    <option value="Grande">Grande</option>
+                </select>
+            </div>
+            <div class="quantity-container">
+                <label for="pizza-popup-quantity">Quantidade:</label>
+                <input type="number" id="pizza-popup-quantity" class="quantity" min="0" value="0">
+            </div>
+            <button class="confirm-btn" onclick="confirmPizzaSelection()">Confirmar</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-total">Total: R$ <span id="total">0,00</span></div>
+        <a id="whatsapp-button" href="https://wa.me/5591983223678?text=" target="_blank" class="contact-button">Finalizar Pedido</a>
+    </footer>
+
     <script>
-        function showPopup(title, image, description, price) {
+        let selectedMenuItem;
+        let selectedPizzaItem;
+
+        function showPopup(element, title, imageSrc, description, price) {
+            selectedMenuItem = element;
             document.getElementById('popup-title').innerText = title;
-            document.getElementById('popup-image').src = image;
+            document.getElementById('popup-image').src = imageSrc;
             document.getElementById('popup-description').innerText = description;
-            document.getElementById('popup-price').innerText = `R$ ${price}`;
+            document.getElementById('popup-price').innerText = 'Preço: R$ ' + price;
+            document.getElementById('popup-quantity').value = 0; // Set quantity to 0 initially
             document.getElementById('popup').style.display = 'flex';
+            document.getElementById('popup').classList.add('show');
+        }
+
+        function showPizzaPopup(element, title, imageSrc, description, prices) {
+            selectedPizzaItem = element;
+            document.getElementById('pizza-popup-title').innerText = title;
+            document.getElementById('pizza-popup-image').src = imageSrc;
+            document.getElementById('pizza-popup-description').innerText = description;
+            document.getElementById('pizza-popup').dataset.prices = JSON.stringify(prices);
+            updatePizzaPrice();
+            document.getElementById('pizza-popup-quantity').value = 0; // Set quantity to 0 initially
+            document.getElementById('pizza-popup').style.display = 'flex';
+            document.getElementById('pizza-popup').classList.add('show');
+        }
+
+        function updatePizzaPrice() {
+            const prices = JSON.parse(document.getElementById('pizza-popup').dataset.prices);
+            const selectedSize = document.getElementById('pizza-size').value;
+            const price = prices[selectedSize];
+            document.getElementById('pizza-popup-price').innerText = 'Preço: R$ ' + price;
+        }
+
+        function confirmSelection() {
+            const quantity = document.getElementById('popup-quantity').value;
+            const price = selectedMenuItem.dataset.price;
+            selectedMenuItem.querySelector('.quantity').value = quantity;
+            selectedMenuItem.dataset.quantity = quantity;
+            updateTotal();
+            closePopup();
+        }
+
+        function confirmPizzaSelection() {
+            const quantity = document.getElementById('pizza-popup-quantity').value;
+            const price = document.getElementById('pizza-popup-price').innerText.replace('Preço: R$ ', '');
+            const selectedSize = document.getElementById('pizza-size').value;
+            selectedPizzaItem.dataset.price = price;
+            selectedPizzaItem.dataset.quantity = quantity;
+            selectedPizzaItem.dataset.size = selectedSize;
+            selectedPizzaItem.querySelector('.quantity').value = quantity;
+            updateTotal();
+            closePizzaPopup();
         }
 
         function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popup').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('popup').style.display = 'none';
+            }, 300);
+        }
+
+        function closePizzaPopup() {
+            document.getElementById('pizza-popup').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('pizza-popup').style.display = 'none';
+            }, 300);
         }
 
         function updateTotal() {
             let total = 0;
-            const items = document.querySelectorAll('.menu-item');
-            items.forEach(item => {
-                const priceText = item.dataset.price.replace(',', '.'); // Use data-price attribute
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const price = parseFloat(item.dataset.price.replace(',', '.'));
                 const quantity = parseInt(item.querySelector('.quantity').value);
                 if (!isNaN(quantity) && quantity > 0) {
-                    total += quantity * parseFloat(priceText);
+                    total += price * quantity;
                 }
             });
-            document.getElementById('total-amount').innerText = total.toFixed(2).replace('.', ',');
-            updateWhatsAppLink(total.toFixed(2));
+            document.getElementById('total').innerText = total.toFixed(2).replace('.', ',');
+            updateWhatsAppLink();
         }
 
-        function updateWhatsAppLink(total) {
-            const baseURL = "https://wa.me/5591983223678";
-            let message = "Olá, gostaria de fazer o pedido com a seguinte seleção:\n\n";
-            const items = document.querySelectorAll('.menu-item');
-            items.forEach(item => {
-                const name = item.querySelector('h3').innerText;
-                const price = item.dataset.price;
+        function updateWhatsAppLink() {
+            let message = "Pedido:\n";
+            document.querySelectorAll('.menu-item').forEach(item => {
                 const quantity = parseInt(item.querySelector('.quantity').value);
                 if (!isNaN(quantity) && quantity > 0) {
-                    message += `${name} - R$ ${price} x ${quantity}\n`;
+                    const title = item.querySelector('h3').innerText;
+                    const size = item.dataset.size ? ` (${item.dataset.size})` : '';
+                    message += `${title}${size}: ${quantity} unidade(s)\n`;
                 }
             });
-            message += `\nTotal: R$ ${total.replace('.', ',')}`;
-            document.getElementById('contact-button').href = `${baseURL}?text=${encodeURIComponent(message)}`;
+            const total = document.getElementById('total').innerText.replace(',', '.');
+            message += `Total: R$ ${total}`;
+            const whatsappNumber = '5591983223678'; // Coloque aqui seu número do WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            document.getElementById('whatsapp-button').href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         }
     </script>
-
 </body>
 </html>
